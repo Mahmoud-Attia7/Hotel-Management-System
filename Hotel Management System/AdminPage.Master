@@ -1,0 +1,139 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="AdminPage.master.cs" Inherits="Hotel_Management_System.AdminPage" %> 
+<%@ Import Namespace="System.Data.SqlClient" %>
+<!DOCTYPE html>
+<script runat="server">
+    protected void Page_Load(object sender, EventArgs e)
+    {
+          String UserName = "";
+            if(Request.Cookies["userInfo"]!=null)
+            {
+                UserName = Request.Cookies["userInfo"].Values["UserName"];
+            }
+            SqlConnection conn = new SqlConnection();
+            conn.ConnectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename= |DataDirectory|SGUEST.mdf;Integrated Security=True";
+            string strSelect = String.Format("SELECT Fname,Lname FROM SUGUEST where Username ='"+UserName+"'");
+            SqlCommand cmdSelect = new SqlCommand(strSelect, conn);
+            SqlDataReader reader;
+
+            //5- Open the database
+            conn.Open();
+
+            //6- Execute SQL Command
+
+            reader = cmdSelect.ExecuteReader();
+            if (reader.Read())
+            {
+                Label1.Text = "Welcom "+ reader[0]+" "+ reader[1];
+            }
+            conn.Close();
+    }
+</script>
+<html>
+<head runat="server">
+    <title></title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <style type="text/css">
+        .auto-style1 {
+            width: 100%;
+        }
+        .auto-style2 {
+            height: 23px;
+        }
+        .auto-style3 {
+            height: 22px;
+        }
+        .auto-style4 {
+            height: 22px;
+            width: 185px;
+        }
+        .auto-style5 {
+            height: 22px;
+            width: 155px;
+        }
+        .auto-style6 {
+            height: 22px;
+            width: 118px;
+        }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div>
+            <table class="auto-style1">
+                <tr>
+                    <td class="auto-style2">
+                        <table class="auto-style1">
+                            <tr>
+                                <td>
+                                    <asp:Image ID="Image1" runat="server" Height="100px" Width="123px" />
+                                </td>
+                                <td>
+                                    <asp:Label ID="MSG" runat="server"></asp:Label>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <table class="auto-style1">
+                            <tr>
+                                <td class="auto-style4">
+                                    <asp:HyperLink ID="Admin" runat="server" Font-Names="Arial Black" NavigateUrl="~/AdminHome.aspx">Admin Home Page</asp:HyperLink>
+                                </td>
+                                <td class="auto-style5">
+                                    <asp:HyperLink ID="Accounts" runat="server" Font-Names="Arial Black" NavigateUrl="~/UserAccounts.aspx">User Accounts</asp:HyperLink>
+                                </td>
+                                <td class="auto-style6">
+                                    <asp:HyperLink ID="Scheduling" runat="server" Font-Names="Arial Black" NavigateUrl="~/Scheduling.aspx">Scheduling</asp:HyperLink>
+                                </td>
+                                <td class="auto-style3">
+                                    &nbsp;</td>
+                                <td class="auto-style3"></td>
+                                <td class="auto-style3"></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder2" runat="server">
+                <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
+            </asp:ContentPlaceHolder>
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                    </td>
+                </tr>
+                
+            </table>
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+        </div>
+    </form>
+</body>
+    <footr>
+        <center>
+                            <p>Contact the Author:<br>
+  <a href="mailto:ahmed.samy2011@gmial.com">ahmed.samy2011@gmail.com</a></p>
+                          </center>
+    </footr>
+</html>
